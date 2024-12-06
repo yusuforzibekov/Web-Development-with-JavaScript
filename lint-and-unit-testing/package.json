@@ -34,7 +34,8 @@
     "mocha-xunit-reporter": "^2.3.0"
   },
   "dependencies": {
-    "jest-junit": "^13.2.0"
+    "jest-junit": "^13.2.0",
+    "lint-and-unit-testing": "file:"
   },
   "jest-junit": {
     "suiteName": "junit test results",

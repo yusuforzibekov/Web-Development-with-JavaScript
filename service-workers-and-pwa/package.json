@@ -26,7 +26,8 @@
     "live-server": "^1.2.2"
   },
   "dependencies": {
-    "jest-junit": "^13.2.0"
+    "jest-junit": "^13.2.0",
+    "service-workers-and-pwa": "file:"
   },
   "jest-junit": {
     "suiteName": "junit test results",
