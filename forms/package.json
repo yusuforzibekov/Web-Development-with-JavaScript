@@ -26,6 +26,7 @@
     "live-server": "^1.2.2"
   },
   "dependencies": {
+    "browser-events-in-practice": "file:",
     "form-data": "^4.0.0",
     "formdata-polyfill": "^4.0.10",
     "jest-junit": "^13.2.0"

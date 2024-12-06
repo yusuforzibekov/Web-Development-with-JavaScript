@@ -28,7 +28,8 @@
     "live-server": "^1.2.2"
   },
   "dependencies": {
-    "jest-junit": "^13.2.0"
+    "jest-junit": "^13.2.0",
+    "js-classes-and-modules": "file:"
   },
   "jest-junit": {
     "suiteName": "junit test results",

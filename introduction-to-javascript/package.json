@@ -26,6 +26,7 @@
     "live-server": "^1.2.2"
   },
   "dependencies": {
+    "introduction-to-javascript": "file:",
     "jest-junit": "^13.2.0"
   },
   "jest-junit": {
