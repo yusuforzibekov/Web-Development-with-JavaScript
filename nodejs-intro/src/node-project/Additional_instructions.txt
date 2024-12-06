@@ -1,0 +1,53 @@
+Follow the steps below to set up the NodeJS application that compiles `ES6` to `ES5` using Babel:
+
+1. In the `src` folder, create a new folder named `node-project`.
+2. Navigate to the `node-project` folder and initialize a new NodeJS project:
+
+   ```bash
+   cd ./src/node-project
+   npm init -y
+   ```
+
+   This will create a `package.json` file with some default values.
+
+3. Install the necessary Babel packages as devDependencies:
+
+   ```bash
+   npm install --save-dev @babel/cli @babel/core @babel/preset-env
+   ```
+
+   This will add them to the `devDependencies section` of your `package.json` file.
+
+4. Create a `.babelrc` file in the `node-project` folder and add the following content:
+
+   ```json
+   {
+    "presets": [
+        ["@babel/preset-env"]
+    ]
+   }
+   ```
+
+   This will tell babel to use the `@babel/preset-env` preset, which automatically determines the plugins and polyfills needed to compile your code based on your target environment.
+
+5. Update the `scripts` section in your `package.json` to include the `build` script:
+
+   ```json
+   "scripts": {
+     "build": "babel input.js --out-file lib/output.js"
+   }
+   ```
+
+   This will tell npm to run the babel command for the `input.js file` and output the compiled code to the lib folder.
+
+6. Create the `input.js` file inside the `node-project` folder with your `ES6` code.
+
+7. Run the build script and check to see if it works as expected.:
+
+   ```bash
+   npm run build
+   ```
+
+   This command should create a `lib` folder with the `output.js` file containing the compiled `ES5` code.
+
+Now, when you run `npm run build`, it will use Babel to compile the `input.js` file in `ES6` syntax to `ES5` and save the result in the `lib/output.js` file.
