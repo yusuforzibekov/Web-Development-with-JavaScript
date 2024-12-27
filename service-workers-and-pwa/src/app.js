@@ -1,28 +1,26 @@
 export function initApp() {
+    // Service Worker Registration
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').then(() => {
-            console.log('Service Worker registered successfully.');
-        }).catch(error => {
-            console.error('Service Worker registration failed:', error);
-        });
+        navigator.serviceWorker.register('sw.js')
     }
 
-    document.getElementById('notification-button').addEventListener('click', () => {
-        if (Notification.permission === 'default') {
+    // Notification Button Click Event
+    const notificationButton = document.getElementById('notification-button');
+    if (notificationButton) {
+        notificationButton.addEventListener('click', () => {
+            // Request Notification Permission
             Notification.requestPermission().then(permission => {
                 if (permission === 'granted') {
-                    showNotification();
+                    // Show Notification
+                    const notification = new Notification('Hello, there!', {
+                        body: 'I can send you notifications even from outer space!',
+                        icon: 'images/rocket.jpg'
+                    });
                 }
-            });
-        } else if (Notification.permission === 'granted') {
-            showNotification();
-        }
-    });
 
-    function showNotification() {
-        new Notification('Hello, there!', {
-            body: 'I can send you notifications even from outer space!',
-            icon: 'images/rocket.jpg'
+            });
+
         });
+
     }
 }

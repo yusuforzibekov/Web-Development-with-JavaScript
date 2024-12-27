@@ -1,3 +1,5 @@
+const CACHE_NAME = 'pwa-demo-app-v1';
+
 const appShellFiles = [
     'index.html',
     'app.js',
@@ -17,28 +19,39 @@ const appShellFiles = [
     'icons/icon-512.png',
 ];
 
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open('pwa-demo-app-v1').then(cache => {
+        caches.open(CACHE_NAME)
+        .then((cache) => {
             return cache.addAll(appShellFiles);
         })
     );
 });
 
-self.addEventListener('fetch', event => {
-    if (event.request.url.startsWith('http:') || event.request.url.startsWith('https:')) {
+self.addEventListener('fetch', (event) => {
+    const requestUrl = new URL(event.request.url);
+
+    if (requestUrl.protocol.startsWith('http')) {
         event.respondWith(
-            caches.match(event.request).then(cachedResponse => {
-                if (cachedResponse) {
-                    return cachedResponse;
+            (async () => {
+                try {
+                    // First try to match in all caches
+                    const cachedResponse = await caches.match(event.request);
+                    if (cachedResponse) {
+                        return cachedResponse;
+                    }
+
+                    // If not in cache, fetch from network
+                    const networkResponse = await fetch(event.request);
+                    if (networkResponse.ok && event.request.method === 'GET') {
+                        const cache = await caches.open(CACHE_NAME);
+                        cache.put(event.request, networkResponse.clone());
+                    }
+                    return networkResponse;
+                } catch (error) {
+                    return fetch(event.request);
                 }
-                return fetch(event.request).then(response => {
-                    return caches.open('pwa-demo-app-v1').then(cache => {
-                        cache.put(event.request, response.clone());
-                        return response;
-                    });
-                });
-            })
+            })()
         );
     }
 });
